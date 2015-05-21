@@ -64,7 +64,7 @@ COSTは処理にかかるCPU時間。プライマリーキーを使うとイン�
 
 ### インデックスを使用した検索を実施
 
-ACCOUNT
+#### ACCOUNT
 
     SELECT * FROM ACCOUNT WHERE ID = '131743479274219874';
 
@@ -72,13 +72,13 @@ ACCOUNT
 
 処理時間は、0.003秒だった。
 
-ALBUM
+#### ALBUM
 
 ![ALBUM PRIMARY](album_primary.png)
 
 ### インデックスを使用しない検索を実施
 
-ACCOUNT
+#### ACCOUNT
 
     SELECT * FROM ACCOUNT WHERE PICTLINK_ID = 'YUGHIUJKYGUI';
 
@@ -86,15 +86,28 @@ ACCOUNT
 
 処理時間は、12.7秒だった。
 
-ALBUM
+#### ALBUM
 
 ![ALBUM NOT PRIMARY](album_not_primary.png)
 
 
+### インデックスを使用している列としていない列を組み合わせて検索を実施
 
+#### プライマリーキーから
 
+    SELECT * FROM ACCOUNT WHERE ID = '131743479274219874' AND PICTLINK_ID = 'YUGHIUJKYGUI';
 
+![ACCOUNT PRIMARY NOT PRIMARY](account_primary_notPrimary.png)
 
+0.003秒
+
+#### 非プライマリーキーから
+
+    SELECT * FROM ACCOUNT WHERE PICTLINK_ID = 'YUGHIUJKYGUI' AND ID = '131743479274219874';
+
+![ACCOUNT NOT PRIMARY PRIMARY](account_notPrimary_primary.png)
+
+0.001秒
 
 
 
